@@ -69,21 +69,21 @@ const Navbar = () => {
         </div>
 
         {/* Search Bar (Blinkit style - Prominent) */}
-        <div className="flex-1 flex items-center min-w-[200px] max-w-3xl border-2 border-transparent focus-within:border-accent rounded-xl overflow-hidden transition-all duration-300">
-          <div className="flex w-full overflow-hidden rounded-xl bg-gray-100/80 text-black h-11 premium-shadow border border-gray-200">
-            <div className="flex items-center pl-4">
-               <img src={assets.search_icon} alt="search" className="w-5 h-5 opacity-40" />
+        <div className="flex-1 flex items-center min-w-[200px] max-w-3xl focus-within:ring-4 focus-within:ring-accent/10 rounded-2xl transition-all duration-500">
+          <div className="flex w-full overflow-hidden rounded-2xl bg-gray-50 text-black h-12 border border-gray-200/60 focus-within:border-primary/30 focus-within:bg-white transition-all shadow-inner-soft">
+            <div className="flex items-center pl-5">
+               <img src={assets.search_icon} alt="search" className="w-5 h-5 opacity-30" />
             </div>
             <input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 px-3 py-2 outline-none text-[15px] placeholder-gray-500 font-medium bg-transparent"
+              className="flex-1 px-4 py-2 outline-none text-[15px] placeholder-gray-400 font-medium bg-transparent"
               type="text"
-              placeholder="Search for groceries, snacks and more"
+              placeholder="Search for groceries, snacks, and fresh finds..."
             />
             <button 
               onClick={() => navigate("/products")}
-              className="bg-accent hover:bg-accent-dark px-6 flex items-center justify-center transition-colors cursor-pointer text-gray-900 font-bold text-sm"
+              className="bg-accent hover:bg-accent-dark px-8 flex items-center justify-center transition-all duration-300 cursor-pointer text-gray-900 font-black text-xs tracking-widest active:scale-95"
             >
               SEARCH
             </button>

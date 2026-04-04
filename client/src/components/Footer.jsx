@@ -33,12 +33,22 @@ const Footer = () => {
                                 <ul className="space-y-4">
                                     {section.links.map((link, i) => (
                                         <li key={i}>
-                                            <a href={link.url} className="text-gray-500 font-medium hover:text-primary transition-colors text-sm">{link.text}</a>
+                                            <a href={link.url} className="text-gray-500 font-medium hover:text-primary transition-all text-sm hover:translate-x-1 inline-block">{link.text}</a>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                         ))}
+                    </div>
+
+                    {/* New Newsletter Section in Footer */}
+                    <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-xl max-w-sm">
+                        <h3 className="font-black text-gray-900 mb-2 uppercase tracking-widest text-[11px]">Join the family</h3>
+                        <p className="text-gray-500 text-xs font-medium mb-6">Get exclusive deals and healthy tips every week.</p>
+                        <div className="flex flex-col gap-3">
+                            <input type="email" placeholder="Email address" className="bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm outline-none focus:border-primary/30 transition-all font-medium" />
+                            <button className="bg-primary text-white font-black py-3 rounded-xl text-xs tracking-widest hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">SUBSCRIBE</button>
+                        </div>
                     </div>
                 </div>
 
