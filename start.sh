@@ -14,11 +14,24 @@ log()  { echo -e "${GREEN}[INFO]${NC} $1"; }
 warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 die()  { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
-# Cleanup
+# Cleanup function
 cleanup() {
-  warn "Shutting down..."
-  [[ -n "$BACKEND_PID" ]]  && kill "$BACKEND_PID"  2>/dev/null
-  [[ -n "$FRONTEND_PID" ]] && kill "$FRONTEND_PID" 2>/dev/null
+  warn "Shutting down gracefully..."
+  
+  # Terminate processes strictly
+  if [[ -n "$BACKEND_PID" ]] && kill -0 "$BACKEND_PID" 2>/dev/null; then
+    kill "$BACKEND_PID" 2>/dev/null
+  fi
+  
+  if [[ -n "$FRONTEND_PID" ]] && kill -0 "$FRONTEND_PID" 2>/dev/null; then
+    kill "$FRONTEND_PID" 2>/dev/null
+  fi
+  
+  # Free hanging ports idempotently
+  lsof -ti:4000 | xargs kill -9 2>/dev/null || true
+  lsof -ti:5173 | xargs kill -9 2>/dev/null || true
+  
+  log "Shutdown complete."
   exit 0
 }
 trap cleanup SIGINT SIGTERM EXIT

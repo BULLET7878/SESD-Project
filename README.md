@@ -23,57 +23,35 @@ A modern full-stack grocery and snack delivery application built by Rahul Dhakad
 
 ---
 
-## ⚙️ DevOps Workflow
+## ⚙️ DevOps Workflow Architecture
 
-```text
-👨‍💻 Developer (You)
-   │
-   ▼
-Write Code (client/src OR server/*)
-   │
-   ▼
-Git Add → Commit (<500 lines)
-   │
-   ▼
-Push to GitHub (main / PR)
-   │
-   ▼
-⚙️ GitHub Actions Triggered
-   │
-   ├───────────────┐
-   ▼               ▼
+```mermaid
+graph TD
+    A[👨‍💻 Developer Push] -->|Triggers CI| B(GitHub Actions)
+    
+    subgraph CI Pipeline
+        B -->|Checkout| C[Install Deps]
+        C --> D[🏃 Lint Checks]
+        D --> E{Vitest/Jest Tests}
+        E -->|Fail| F[❌ Block Deploy]
+        E -->|Pass| G[✅ Build Artifacts]
+    end
 
-🟦 Client Build    🟩 Server Build
-- Install deps     - Install deps
-- Lint             - Basic checks
-- Test             - Validation
-- Build           
-
-   │
-   └───────┬───────┘
-           ▼
-
-🐳 Docker Build
-- Client image (Nginx)
-- Server image
-
-           │
-           ▼
-
-📦 docker-compose
-- Runs full application
-
-           │
-           ▼
-
-🚀 Deployment (AWS EC2)
-- Automated via CI/CD
-
-           │
-           ▼
-
-🌐 Live Application
+    subgraph CD Pipeline
+        G --> H[🐳 Docker Build]
+        H --> I[🚀 AWS EC2 Deploy via SSH]
+        I --> J[Docker Compose Up]
+        J --> K[🌍 Live App]
+    end
+    
+    style E fill:#f9f,stroke:#333,stroke-width:2px
+    style I fill:#bbf,stroke:#333,stroke-width:2px
 ```
+
+### Automation & Idempotency
+- **Testing:** `mongodb-memory-server` ensures integration tests are perfectly isolated and run anywhere.
+- **Startup script:** `start.sh` uses POSIX-compliant port termination (`lsof -ti`) for pristine idempotency.
+- **Dependabot:** Fully configured weekly automation for NPM and Actions.
 
 ---
 
