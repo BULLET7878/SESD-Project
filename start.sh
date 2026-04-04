@@ -14,7 +14,7 @@ log()  { echo -e "${GREEN}[INFO]${NC} $1"; }
 warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 die()  { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 
-# Trap to kill background processes on exit/interrupt
+# Cleanup
 cleanup() {
   warn "Shutting down..."
   [[ -n "$BACKEND_PID" ]]  && kill "$BACKEND_PID"  2>/dev/null
@@ -28,30 +28,48 @@ for cmd in node npm npx; do
   command -v "$cmd" &>/dev/null || die "'$cmd' is not installed."
 done
 
-start_backend() {
-  log "Installing backend dependencies..."
-  (cd "$BACKEND_DIR" && npm ci --omit=dev) || die "Backend npm install failed."
+# Install deps only if needed (idempotent)
+install_if_needed() {
+  if [ ! -d "node_modules" ]; then
+    log "Installing dependencies..."
+    npm ci
+  else
+    log "Dependencies already installed, skipping..."
+  fi
+}
 
-  log "Starting backend server..."
-  (cd "$BACKEND_DIR" && npm start) &
+start_backend() {
+  log "Starting backend..."
+
+  cd "$BACKEND_DIR"
+  install_if_needed
+
+  npm start &
   BACKEND_PID=$!
+  cd - > /dev/null
+
   log "Backend running (PID: $BACKEND_PID)"
 }
 
 start_frontend() {
-  log "Installing frontend dependencies..."
-  (cd "$FRONTEND_DIR" && npm ci) || die "Frontend npm install failed."
+  log "Starting frontend..."
+
+  cd "$FRONTEND_DIR"
+  install_if_needed
 
   log "Building frontend..."
-  (cd "$FRONTEND_DIR" && npm run build) || die "Frontend build failed."
+  npm run build
 
   log "Serving frontend..."
-  npx serve -s "$FRONTEND_DIR/dist" &
+  npx serve -s dist &
   FRONTEND_PID=$!
+
+  cd - > /dev/null
+
   log "Frontend running (PID: $FRONTEND_PID)"
 }
 
-# --- Docker mode ---
+# Docker mode
 if [[ "$1" == "--docker" ]]; then
   log "Starting with Docker Compose..."
   command -v docker &>/dev/null || die "Docker is not installed."
@@ -59,7 +77,7 @@ if [[ "$1" == "--docker" ]]; then
   exit 0
 fi
 
-# --- Local mode ---
+# Run services
 start_backend
 start_frontend
 
