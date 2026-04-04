@@ -107,6 +107,7 @@ const Navbar = () => {
               <ul className="hidden group-hover:block absolute top-[100%] right-0 bg-white shadow-2xl border border-gray-100 py-2 w-52 rounded-xl text-black text-sm z-40 mt-2 p-1">
                 <li className="px-4 py-2 hover:bg-gray-50 rounded-lg cursor-pointer text-gray-700 font-black border-b border-gray-100 mb-1">Your Profile</li>
                 <li onClick={() => navigate("/my-orders")} className="px-4 py-2 hover:bg-primary/5 rounded-lg cursor-pointer font-medium">Orders History</li>
+                <li onClick={() => setShowSellerLogin(true)} className="px-4 py-2 hover:bg-primary/5 rounded-lg cursor-pointer font-medium decoration-primary underline underline-offset-4">Seller Dashboard</li>
                 <li onClick={logout} className="px-4 py-2 hover:bg-red-50 rounded-lg cursor-pointer text-red-600 font-bold border-t border-gray-100 mt-1">Sign Out</li>
               </ul>
             )}
@@ -188,6 +189,11 @@ const Navbar = () => {
                 <NavLink to="/my-orders" className="flex items-center gap-3 px-4 py-3.5 hover:bg-primary/5 rounded-xl font-bold" onClick={() => setOpen(false)}>
                    My Orders
                 </NavLink>
+                {user && (
+                  <div onClick={() => {setShowSellerLogin(true); setOpen(false)}} className="flex items-center gap-3 px-4 py-3.5 hover:bg-primary/5 rounded-xl font-bold cursor-pointer text-primary">
+                    Seller Dashboard
+                  </div>
+                )}
                 {user ? (
                    <button onClick={logout} className="w-full text-left px-4 py-3.5 hover:bg-red-50 rounded-xl text-red-600 font-black mt-2">Sign Out</button>
                 ) : (

@@ -29,7 +29,8 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow all origins in development or if the origin is in the allowed list
+    if (process.env.NODE_ENV !== "production" || !origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("CORS not allowed"));

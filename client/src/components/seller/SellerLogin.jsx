@@ -45,6 +45,10 @@ const SellerLogin = () => {
                 onClick={(e) => e.stopPropagation()}
                 className='flex flex-col gap-5 m-auto items-start p-8 py-12 min-w-80 sm:min-w-88 rounded-lg shadow-xl border border-gray-200 bg-white'
             >
+                <div className="flex items-center transition-opacity hover:opacity-80 m-auto mb-2">
+                    <span className="text-2xl font-black tracking-tighter text-primary">Blu</span>
+                    <span className="text-2xl font-black tracking-tighter text-white bg-primary px-1.5 ml-0.5 rounded-md transform -rotate-2">Mart</span>
+                </div>
                 <p className='text-2xl font-medium m-auto'><span className='text-primary'>Seller</span> Login</p>
 
                 <div className='w-full'>
