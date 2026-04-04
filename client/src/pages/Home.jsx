@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className='mt-8 flex flex-col gap-12' >
         <MainBanner/>
-        <div className="px-6 md:px-16 lg:px-24 xl:px-32">
+        <div className="flex flex-col gap-12">
           <Categories/>
           <BestSeller/>
           <BottomBanner/>
