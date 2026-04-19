@@ -1,6 +1,6 @@
-import { OrderRepository } from '../repositories/OrderRepository.js';
-import { ProductRepository } from '../repositories/ProductRepository.js';
-import { UserRepository } from '../repositories/UserRepository.js';
+import { OrderRepository } from '../repositories/OrderRepository';
+import { ProductRepository } from '../repositories/ProductRepository';
+import { UserRepository } from '../repositories/UserRepository';
 import Stripe from 'stripe';
 
 export class OrderService {
