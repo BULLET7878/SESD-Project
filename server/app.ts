@@ -1,7 +1,6 @@
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import cors from 'cors';
-import 'dotenv/config';
 import userRouter from './routes/userRoute';
 import sellerRouter from './routes/sellerRoute';
 import productRouter from './routes/productRoute';
