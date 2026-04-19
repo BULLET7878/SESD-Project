@@ -2,6 +2,14 @@
   "name": "bluemart-root",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "build": "npm install && npm install --prefix client && npm install --prefix server && npm run build --prefix client",
+    "server": "npm install --prefix server && npm run server --prefix server"
+  },
   "dependencies": {
     "express": "^5.2.1",
     "mongoose": "^9.1.6",
