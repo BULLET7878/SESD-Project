@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "npm run build --prefix client",
+    "vercel-build": "npm run build --prefix client && mkdir -p public && cp -r client/dist/* public/",
     "install-server": "npm install --prefix server"
   },
   "dependencies": {

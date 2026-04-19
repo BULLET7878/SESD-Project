@@ -11,12 +11,14 @@ export default async (req: any, res: any) => {
         }
         await connectDB();
         return app(req, res);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Vercel Backend Error:", error);
         return res.status(500).json({ 
             success: false, 
-            message: "Internal Server Error", 
-            error: error.message
+            message: "Internal Server Error in Vercel API", 
+            error: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+            hint: "Check if MONGODB_URI is correctly set in Vercel Environment Variables and Atlas IP Whitelist allows 0.0.0.0/0"
         });
     }
 };
