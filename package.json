@@ -10,13 +10,16 @@
     "build": "npm run build --prefix client && rm -rf public && mv client/dist public",
     "install-server": "npm install --prefix server"
   },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  },
   "engines": {
     "node": "20.x"
   },
   "dependencies": {
     "express": "^5.2.1",
     "mongoose": "^8.13.3",
-    "dotenv": "^17.2.4",
+    "dotenv": "^17.4.0",
     "cors": "^2.8.6",
     "cookie-parser": "^1.4.7",
     "jsonwebtoken": "^9.0.3",
