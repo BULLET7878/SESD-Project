@@ -39,6 +39,7 @@ app.use(cors({
 }));
 
 app.get('/', (req, res) => res.send("API is Working"));
+app.get('/api/health', (req, res) => res.json({ status: "OK", timestamp: new Date().toISOString() }));
 
 app.use("/api/user", userRouter);
 app.use('/api/seller', sellerRouter);
