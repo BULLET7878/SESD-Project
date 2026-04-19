@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import app from "../server/app.ts";
-import connectDB from "../server/configs/db.ts";
+import app from "../server/app";
+import connectDB from "../server/configs/db";
 
 export default async (req: any, res: any) => {
     try {

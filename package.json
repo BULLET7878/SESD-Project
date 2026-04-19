@@ -11,6 +11,9 @@
     "vercel-build": "npm run build --prefix client && mkdir -p public && cp -r client/dist/* public/",
     "install-server": "npm install --prefix server"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "express": "^5.2.1",
     "mongoose": "^9.1.6",
@@ -20,7 +23,7 @@
     "jsonwebtoken": "^9.0.3",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.9.0",
-    "multer": "^2.0.2",
+    "multer": "^2.1.0",
     "stripe": "^20.3.1"
   }
 }

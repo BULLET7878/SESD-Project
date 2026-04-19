@@ -2,13 +2,13 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
-import userRouter from './routes/userRoute.js';
-import sellerRouter from './routes/sellerRoute.js';
-import productRouter from './routes/productRoute.js';
-import cartRouter from './routes/cartRoute.js';
-import addressRouter from './routes/addressRoute.js';
-import orderRouter from './routes/orderRoute.js';
-import { stripeWebhooks } from './controllers/orderController.js';
+import userRouter from './routes/userRoute';
+import sellerRouter from './routes/sellerRoute';
+import productRouter from './routes/productRoute';
+import cartRouter from './routes/cartRoute';
+import addressRouter from './routes/addressRoute';
+import orderRouter from './routes/orderRoute';
+import { stripeWebhooks } from './controllers/orderController';
 
 const app = express();
 
