@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose from "mongoose";
+
 
 import authUser from "../middlewares/authUser";
 import { updateCart } from "../controllers/cartController";
