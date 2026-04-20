@@ -17,8 +17,12 @@ export default async (req: any, res: any) => {
             success: false, 
             message: "Internal Server Error in Vercel API", 
             error: error.message,
-            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
-            hint: "Check if MONGODB_URI is correctly set in Vercel Environment Variables and Atlas IP Whitelist allows 0.0.0.0/0"
+            envCheck: {
+                hasMongo: !!process.env.MONGODB_URI,
+                hasJwt: !!process.env.JWT_SECRET,
+                mongoMasked: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 15) + "..." : "NONE"
+            },
+            hint: "Check if MONGODB_URI is correctly set in Vercel and Atlas IP Whitelist allows 0.0.0.0/0"
         });
     }
 };
