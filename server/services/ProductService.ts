@@ -1,4 +1,4 @@
-import { ProductRepository } from '../repositories/ProductRepository.js';
+import { ProductRepository } from '../repositories/ProductRepository';
 import { v2 as cloudinary } from 'cloudinary';
 
 export class ProductService {
