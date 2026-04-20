@@ -1,14 +1,13 @@
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import cors from 'cors';
-import 'dotenv/config';
-import userRouter from './routes/userRoute.js';
-import sellerRouter from './routes/sellerRoute.js';
-import productRouter from './routes/productRoute.js';
-import cartRouter from './routes/cartRoute.js';
-import addressRouter from './routes/addressRoute.js';
-import orderRouter from './routes/orderRoute.js';
-import { stripeWebhooks } from './controllers/orderController.js';
+import userRouter from './routes/userRoute';
+import sellerRouter from './routes/sellerRoute';
+import productRouter from './routes/productRoute';
+import cartRouter from './routes/cartRoute';
+import addressRouter from './routes/addressRoute';
+import orderRouter from './routes/orderRoute';
+import { stripeWebhooks } from './controllers/orderController';
 
 const app = express();
 
@@ -29,8 +28,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow all origins in development or if the origin is in the allowed list
-    if (process.env.NODE_ENV !== "production" || !origin || allowedOrigins.includes(origin)) {
+    if (!origin || process.env.NODE_ENV !== "production" || allowedOrigins.includes(origin) || origin.includes("vercel.app")) {
       callback(null, true);
     } else {
       callback(new Error("CORS not allowed"));
@@ -40,6 +38,7 @@ app.use(cors({
 }));
 
 app.get('/', (req, res) => res.send("API is Working"));
+app.get('/api/health', (req, res) => res.json({ status: "OK", timestamp: new Date().toISOString() }));
 
 app.use("/api/user", userRouter);
 app.use('/api/seller', sellerRouter);
