@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import app from "../server/app.ts";
-import connectDB from "../server/configs/db.ts";
+import app from "../server/app";
+import connectDB from "../server/configs/db";
 
 export default async (req: any, res: any) => {
     try {
@@ -11,12 +11,18 @@ export default async (req: any, res: any) => {
         }
         await connectDB();
         return app(req, res);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Vercel Backend Error:", error);
         return res.status(500).json({ 
             success: false, 
-            message: "Internal Server Error", 
-            error: error.message
+            message: "Internal Server Error in Vercel API", 
+            error: error.message,
+            envCheck: {
+                hasMongo: !!process.env.MONGODB_URI,
+                hasJwt: !!process.env.JWT_SECRET,
+                mongoMasked: process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 15) + "..." : "NONE"
+            },
+            hint: "Check if MONGODB_URI is correctly set in Vercel and Atlas IP Whitelist allows 0.0.0.0/0"
         });
     }
 };

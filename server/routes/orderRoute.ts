@@ -1,7 +1,7 @@
 import express from 'express';
-import authUser from '../middlewares/authUser.js';
-import { getAllOrders, getUserOrders, placeOrderCOD, placeOrderStripe, placeOrderUPI } from '../controllers/orderController.js';
-import authSeller from '../middlewares/authSeller.js';
+import authUser from '../middlewares/authUser';
+import { getAllOrders, getUserOrders, placeOrderCOD, placeOrderStripe, placeOrderUPI } from '../controllers/orderController';
+import authSeller from '../middlewares/authSeller';
 
 const orderRouter = express.Router();
 

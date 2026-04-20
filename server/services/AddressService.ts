@@ -1,4 +1,4 @@
-import { AddressRepository } from '../repositories/AddressRepository.js';
+import { AddressRepository } from '../repositories/AddressRepository';
 
 export class AddressService {
     private static instance: AddressService;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ProductService } from "../services/ProductService.js";
+import { ProductService } from "../services/ProductService";
 
 const productService = ProductService.getInstance();
 
