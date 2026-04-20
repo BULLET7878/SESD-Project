@@ -1,4 +1,6 @@
-import { Model, Document, UpdateQuery } from 'mongoose';
+import mongoose, { Model, Document, UpdateQuery } from 'mongoose';
+
+type Filter<T> = mongoose.FilterQuery<T>;
 
 export abstract class BaseRepository<T extends Document> {
     constructor(protected model: Model<T>) {}
@@ -11,11 +13,11 @@ export abstract class BaseRepository<T extends Document> {
         return await this.model.findById(id);
     }
 
-    async findOne(query: any): Promise<T | null> {
+    async findOne(query: Filter<T>): Promise<T | null> {
         return await this.model.findOne(query);
     }
 
-    async find(query: any = {}): Promise<T[]> {
+    async find(query: Filter<T> = {} as Filter<T>): Promise<T[]> {
         return await this.model.find(query);
     }
 
