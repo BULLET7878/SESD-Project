@@ -1,6 +1,6 @@
-import app from './app.js';
-import connectDB from './configs/db.js';
-import connectCloudinary from './configs/cloudinary.js';
+import app from './app';
+import connectDB from './configs/db';
+import connectCloudinary from './configs/cloudinary';
 
 const port = process.env.PORT || 4000;
 
